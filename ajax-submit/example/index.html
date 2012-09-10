@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="http://gamalshaban.me/ajax-submit/ajax.submit.js"></script>
+    </head>
+    <body>
+        <div style="float:left;margin-left: 5%;margin-top: 50px;width: 480px;">
+            <div style="margin: 5px;border:1px solid #ccc;padding: 20px;">
+                <strong>submitForm</strong>
+                <p>
+                    A sample form to submit java ajax-submit lib.
+                </p>
+                <form name="firstform" class="ajax-submit" action="handler.php" method="POST">
+                    <p>
+                        <label>
+                            Text Area:</label><br/>
+                        <textarea name="textarea" rows="5" cols="30"></textarea>
+                    </p>
+                    <p>
+                        <label>
+                            text field:
+                        </label>
+                        <input type="text" name="input" value="" size="40" />
+                    </p>
+                    <p>
+                        <label>
+                            Multi Select:
+                        </label><br/>
+                        <select name="multiselect" multiple="multiple" style="width: 150px;height: 70px;">
+                            <option value="1">multi-option 1</option>
+                            <option value="2">multi-option 2</option>
+                            <option value="3">multi-option 3</option>
+                            <option value="4">multi-option 4</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label>
+                            Check box:
+                        </label><br/>
+                        option on&nbsp;&nbsp;:<input type="checkbox" name="check" value="ON" /><br/>
+                        option two:<input type="checkbox" name="check" value="OFF" />
+                    </p>
+                    <p>
+                        <label>radio:</label><br/>
+                        radio 1:<input type="radio" name="radios" value="r" /><br/>
+                        radio 2:<input type="radio" name="radios" value="a" /><br/>
+                        radio 3:<input type="radio" name="radios" value="d" /><br/>
+                    </p>
+                    <p>
+                        <label>drop down:</label><br/>
+                        <select name="select">
+                            <option value="11">11 select</option>
+                            <option value="22">22 select</option>
+                            <option value="33">33 select</option>
+                        </select>
+                    </p>
+                    <input type="submit" value="submit form" />
+                </form>
+                <p>code:</p>
+                <code>
+                    &lt;form name="firstform" <strong>class="ajax-submit"</strong>action="handler.php" method="POST"&gt;
+                </code>
+            </div>
+            <div style="border:1px solid #ccc;padding: 20px;margin: 5px;">
+                <strong>jalert</strong>
+                <p id="showJalertMessage">
+                    write the message in this textarea and click show alert button to show the jalert :)
+                </p>
+                <textarea id="showJalertTextarea"  rows="5" cols="30"></textarea><br/>
+                <button id="showJalert">Show JAlert.</button>
+                <p>code:</p>
+                    <code>jui.jalert(text);</code>
+                <button id="showJalertC">Show JAlert and clear the textarea.</button><br/>
+                <p>code:</p>
+                    <code>jui.jalert(text,function(){$(textarea).val("");});</code>
+            </div>
+            <div style="border:1px solid #ccc;padding: 20px;margin: 5px;">
+                <strong>jloading</strong>
+                <h4>show the overlay for 5 second</h4>
+                <p>
+                    write the label you want to show in the input field, otherwise it'll show the default one.<br/>
+                    <input id="showJloadinglabel"/><br/>
+                    <span>code:</span><br/>
+                    <code>jui.jloading(text)</code><br/>
+                    <code>jui.jloading()</code><br/>
+                    <button id="showJloading">show jloading</button><br/>
+                    note: closing the overlay is done with this method <code>jui.jHide()</code>
+                    as you can use it anytime to hide any overlay or any boxes.
+                </p>
+            </div>
+            <div style="border:1px solid #ccc;padding: 20px;margin: 5px;">
+                <strong>jconfrim</strong>
+                <h4>show confirm box</h4>
+                <p id="jconfrim">
+                    write here a message to show in the confirm box<br/>
+                    <textarea id="showJconfirmTextArea" rows="5" cols="30"></textarea><br/>
+                    I'd like to let you write your own functions to show how the confirm and cancel actions is done, but for some security
+                    reasons I'd not do that, you can download the lib and try it yourself, it's so easy, just call it like this:<br/>
+                    <code>jui.jconfirm("message to show in the box",function(){<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;//this is the ok action.<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;alert('ok is clicked');<br/>
+                        &nbsp;},function(){<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;//this is the cancel action.<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;alert('cancel is clicked');<br/>
+                        &nbsp;})</code><br/>
+
+                    <button id="showJconfrim">show confirm box.</button>
+                </p>
+                <p>
+
+                </p>
+            </div>
+            <script type="text/javascript">
+                $(function(){
+                    $("#showJconfrim").click(function(){
+                        var text = $("#showJconfirmTextArea").val();
+                        if(text == '' || text == null){
+                            $("#jconfrim").css('color','red');
+                            window.setTimeout(function(){
+                                $("#jconfrim").css('color','black');
+                            }, 2000);
+                            return;
+                        }
+                        jui.jconfirm(text, function(){
+                            alert('ok is clicked');
+                        }, function(){
+                            alert('cancel is clicked');
+                        });
+                    });
+                    $("#showJloading").click(function(){
+                        var text = $("#showJloadinglabel").val();
+                        if(text == null || text == ""){
+                            jui.jloading();
+                        }else{
+                            jui.jloading(text);
+                        }
+                        window.setTimeout(function(){
+                            jui.jHide();
+                        }, 5000);
+                    })
+                    $("#showJalert,#showJalertC").click(function(){
+                        var text = $("#showJalertTextarea").val();
+                        if(text == "" || text == null){
+                            $("#showJalertMessage").css('color','red');
+                            window.setTimeout(function(){
+                                $("#showJalertMessage").css('color','black');
+                            }, 2000);
+                            return;
+                        }
+                        if(this.id == 'showJalertC'){
+                            jui.jalert(text,function(){
+                                $("#showJalertTextarea").val("");
+                            });
+                        }else
+                            jui.jalert(text);
+                    })
+                })
+            </script>
+        </div>
+    </body>
+</html>
